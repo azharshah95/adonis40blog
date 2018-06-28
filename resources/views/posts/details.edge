@@ -1,0 +1,114 @@
+@layout('main')
+
+@section('content')
+    @loggedIn
+        <a href="{{ route('posts') }}">Go Back</a>
+        <hr>
+        <h1>{{ post.title }}</h1>
+        {{--  <p><i>Author: <strong>{{ author.id }}</strong></i></p>  --}}
+        {{--  <p><i>Author: <strong>{{ author[0].username}}</strong></i></p>  --}}
+        <p><i>Author: <strong>{{ post.user.username}}</strong></i></p>
+        {{--  <p><strong>{{ post.id }}</strong></p>  --}}
+        <p>{{ post.body }}</p>
+        
+        <img class="img-thumbnail" src="{{post.image}}" alt="Hello World" style="width:350px;height:200px;">
+                    <br><br>
+        <!-- <iframe width="700" height="400" class="embed-responsive-item" src="https://www.youtube.com/embed/Js9RFNNce0c"></iframe> -->
+        <hr>
+  
+        @unless( post.user_id == auth.user.id)
+                <h6>Comments</h6>            
+                <ul class="list-group">
+                    @each(comment in post.comments)
+                    <li class="list-group-item">
+                        <span>{{ comment.comment_body }}</span> 
+                        <span class="float-right"><strong><i>{{ comment.user.username }}</i></strong></span>                                                                               
+                    </li>            
+                    @endeach
+                </ul>
+                <br>
+                <form method="POST" action="{{ route('storeComment', { id: post.id }) }}" >
+                    {{ csrfField() }}
+                    <div class="form-group">
+                        <textarea
+                            name="comment_body"
+                            class="form-control"
+                            placeholder="Write your comment here"></textarea>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Comment</button>
+                </form>
+                <br>
+                <br>
+                <br>
+            @else
+                <a href="{{ route('edit', { id: post.id }) }}" class="btn btn-dark d-block float-left">Edit</a>                
+                <form action="{{ route('postDestroy', { id: post.id }) + '?_method=DELETE' }}" method="POST">
+                    {{ csrfField() }}
+                    <button type="submit" class="btn btn-danger d-block float-right">Delete</button>
+                </form>
+                <br><br><hr>
+
+                @if(old('notification'))
+                    <div class="alert alert-success">
+                        {{ old('notification') }}
+                    </div>
+                @endif
+
+                <h6>Comments</h6>
+                    
+                <ul class="list-group">                
+                    @each(comment in post.comments)
+                    <li class="list-group-item">
+                        <span>{{ comment.comment_body }}</span>
+                        <span class="float-right"><strong><i>{{ comment.user.username }}</i></strong></span>
+                            <form action="{{ route('destroyComment', { id: comment.id }) + '?_method=DELETE' }}" method="POST">
+                                {{ csrfField() }}
+                                <button type="submit" class="btn btn-danger btn-sm float-right">Delete</button>                                
+                            </form>                                                                              
+                    </li>            
+                    @endeach
+                </ul>
+                <br>
+                <!-- <form method="POST" action="/posts/{{ post.id }}" > -->
+                <form method="POST" action="{{ route('storeComment', { id: post.id }) }}" >
+                    {{ csrfField() }}
+                    <div class="form-group">
+                        <!-- <label><i>Write your comment here</i></label> -->
+                        <textarea
+                            name="comment_body"
+                            class="form-control"
+                            placeholder="Write your comment here"></textarea>
+                    </div>
+                    <!-- <div>
+                        <input hidden value="{{ post.id }}" />
+                    </div> -->
+                    <button class="btn btn-primary" type="submit">Comment</button>
+                </form>
+                <br>
+                <br>
+                <br>
+
+        @endunless
+
+    @else
+        <a href="{{ route('posts') }}">Go Back</a>
+        <hr>
+        <h1>{{ post.title }}</h1>
+        {{--  <p><strong>{{ post.user_id }}</strong></p>  --}}
+        {{--  <p><strong>{{ post.id }}</strong></p>  --}}
+        <p><i>Author: <strong>{{ post.user.username}}</strong></i></p>
+        <p>{{ post.body }}</p>
+        <img class="img-thumbnail" src="{{post.image}}"
+                alt="Hello World" style="width:350px;height:200px;">
+        <hr>
+        <h6>Comments</h6>
+        <ul class="list-group">
+            @each(comment in post.comments)
+            <li class="list-group-item">
+                <span>{{ comment.comment_body }}</span>
+                <span class="float-right"><strong><i>{{ comment.user.username }}</i></strong></span>                                                        
+            </li>            
+            @endeach
+        </ul>
+    @endloggedIn
+@endsection
