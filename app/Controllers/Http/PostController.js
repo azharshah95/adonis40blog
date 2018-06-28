@@ -33,7 +33,9 @@ class PostController {
         })        
     }
 
-    async details({ params, view }) {
+    async details({ params, view, auth }) {
+        
+
         const post = await Post
             .query()
             .with('comments.user')
@@ -41,7 +43,9 @@ class PostController {
             .where('id','=',`${params.id}`)
             .first()
         
-        // console.log(post.toJSON())
+            // if (auth.user.id != post.user_id) {
+            //     return 'hi'
+            // }
         
         return view.render('posts.details', {
           post: post.toJSON(),
@@ -50,9 +54,9 @@ class PostController {
       }
 
     async add({ view, auth, response }) {
-        // if (!auth.user) {
-        //     return response.redirect('/posts')
-        // }
+        if (!auth.user) {
+            return response.redirect('/posts')
+        }
         return view.render('posts.add')
     }
 
@@ -107,7 +111,7 @@ class PostController {
         // }
 
         const post = await Post.find(params.id)
-        
+        console.log(post.toJSON())
         return view.render('posts.edit', {
             post: post
         })
