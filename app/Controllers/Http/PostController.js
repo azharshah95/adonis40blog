@@ -21,12 +21,8 @@ class PostController {
             .withCount('comments')
             .fetch()
 
-        // const test = new Post()
-        // return test.latest()
-        //console.log(test)
-            
         const postsList=  posts.toJSON()
-
+        
         return view.render('posts.index', {
             title: 'Latest Posts',
             posts: postsList
@@ -46,7 +42,6 @@ class PostController {
             // if (auth.user.id != post.user_id) {
             //     return 'hi'
             // }
-        
         return view.render('posts.details', {
           post: post.toJSON(),
           image: post.image
@@ -75,13 +70,11 @@ class PostController {
         }
 
         const post = new Post();
-        console.log(post.toJSON())
+        
         const File = request.file('image', {
             types: ['image'],
             size: '2mb'
         })
-        
-        //console.log(File.clientName)
 
         await File.move(Helpers.publicPath('uploads_'+`${auth.user.username}`), {
             name: `${File.clientName}`
@@ -111,7 +104,7 @@ class PostController {
         // }
 
         const post = await Post.find(params.id)
-        console.log(post.toJSON())
+        
         return view.render('posts.edit', {
             post: post
         })

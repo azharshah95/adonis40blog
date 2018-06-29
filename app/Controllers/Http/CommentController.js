@@ -36,39 +36,7 @@ class CommentController {
         session.flash({ notification: 'Comment Deleted!' })
         return response.redirect(`/posts/${destroy.post_id}`)
     }
-
-    /* async index({ view }){
-
-        const comments = await Comment.all()        
-        //console.log(comments.toJSON())
-        return view.render('posts.index',{
-            comments: comments.toJSON()
-        })
-
-    } */
     
 }
 
 module.exports = CommentController
-
-
-
-
-/* async testComment({ params, view }){        
-
-        // const comments = await Comment.query()
-        //     .with('post')
-        //     .fetch()
-
-        const comment = await Comment.find(params.id)
-        console.log('hi')
-        console.log(comment)
-        return view.render('posts.details', {
-            title: 'Latest Posts',
-            titleCom: 'Latest Comments',
-            comments: comment.toJSON()
-        })        
-    } */
-
-
-
