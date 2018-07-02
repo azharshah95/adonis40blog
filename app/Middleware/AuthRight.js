@@ -15,21 +15,21 @@ class AuthRight {
 
     if (!auth.user) {
       session.flash({
-        notification: {
+        error: {
           type: 'danger',
           message: `Please login as ${name.user.username}`
         }
       })
-      return response.redirect('/login')
+      return response.redirect('/posts')
     } 
     else if (auth.user.id != post.user_id) {      
         session.flash({
-          notification: {
+          error: {
             type: 'danger',
             message: `Please login as ${name.user.username}`
           }
         })
-        return response.redirect('/login')  
+        return response.redirect('/posts')  
     } 
 
     await next()

@@ -12,7 +12,7 @@ const { validate } = use('Validator')
 
 class PostController {
 
-    async index({ view }) {            
+    async index({ view, session }) {            
         const posts = await Post
             // .latest()
             .query()

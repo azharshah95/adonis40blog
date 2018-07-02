@@ -1,0 +1,5 @@
+@if(flashMessage('error'))
+  <div class="error is-{{ flashMessage('error.type') }}">
+    {{ flashMessage('error.message') }}
+  </div>
+@endif
