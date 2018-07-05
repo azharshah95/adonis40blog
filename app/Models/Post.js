@@ -4,8 +4,13 @@ const Model = use('Model')
 
 class Post extends Model {
 
-    // static getLatest(){
-    //   this.latest()
+    static boot () {
+      super.boot()
+      this.addTrait('Latest')
+    }
+
+    // static scopeLatest (query) {
+    //   return query.orderBy('updated_at','desc')
     // }
 
     //RELATIONSHIP
@@ -20,12 +25,7 @@ class Post extends Model {
     comments () {
       return this.hasMany('App/Models/Comment')
     }
-
-    //METHODS
-
-    // static latest() {
-    //   return this
-    // }
+    
 }
 
 module.exports = Post

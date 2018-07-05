@@ -35,6 +35,7 @@ class CommentController {
         await destroy.delete()
         session.flash({ notification: 'Comment Deleted!' })
         return response.redirect(`/posts/${destroy.post_id}`)
+        // return response.redirect(`'postDetails { id: ${destroy.post_id} }'`)
     }
     
 }

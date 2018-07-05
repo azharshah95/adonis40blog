@@ -4,18 +4,14 @@ const Hash = use('Hash')
 const Model = use('Model')
 
 class User extends Model {
-  static boot () {
+  static boot () { 
     super.boot()
 
     /**
      * A hook to hash the user password before saving
      * it to the database.
      */
-    this.addHook('beforeCreate', async (userInstance) => {
-      if (userInstance.dirty.password) {
-        userInstance.password = await Hash.make(userInstance.password)
-      }
-    })
+    this.addHook('beforeCreate', 'UserHook.hashPassword')
   }
 
   /**

@@ -26,7 +26,7 @@ class RegisterController {
         if (validation.fails()) {
           session.withErrors(validation.messages()).flashExcept(['password'])
     
-          return response.redirect('back')
+          return response.redirect('/back')
         }
 
         const user = await User.create({
@@ -52,7 +52,7 @@ class RegisterController {
             }
         })
   
-      return response.redirect('back')
+      return response.redirect('/back')
 
     }
 
