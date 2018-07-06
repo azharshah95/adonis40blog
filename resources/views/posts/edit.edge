@@ -17,15 +17,14 @@
                 value="{{ post.title }}"
                 >
                 {{ elIf('<span class="text-danger">$self</span>', getErrorFor('title'), hasErrorFor('title')) }}
-        </div>
+        </div>    
         <div class="form-group">
             <label>Body</label>
             <textarea
                 name="body"
                 class="form-control"
-                placeholder="Body"
-                value="{{ post.body }}"></textarea>
-            {{ elIf('<span class="text-danger">$self</span>', getErrorFor('body'), hasErrorFor('body')) }}
+                placeholder="Body">{{ post.body }}</textarea>
+                {{ elIf('<span class="text-danger">$self</span>', getErrorFor('body'), hasErrorFor('body')) }}
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>
