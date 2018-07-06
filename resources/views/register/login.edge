@@ -9,6 +9,7 @@
       
       <form action="{{ route('login') }}" method="post">
         {{ csrfField() }}
+        {{--  {{ csrfToken () }}  --}}
 
         <div class="field">
           <label class="label">Username</label>

@@ -22,7 +22,7 @@ Route.on('/home').render('home').as('home')
 Route.get('/posts', 'PostController.index').as('posts')
 
 // Route.get('/posts/add', 'PostController.add').as('add').middleware(['auth:session,jwt'])
-Route.get('/posts/add', 'PostController.add').as('add').middleware(['auth'])
+Route.get('/posts/add', 'PostController.add').as('add').middleware(['auth:session'])
 
 Route.get('/posts/edit/:id', 'PostController.edit').as('edit').middleware(['rights'])
 
