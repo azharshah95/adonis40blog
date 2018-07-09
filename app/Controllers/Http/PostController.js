@@ -3,7 +3,7 @@
 // Bring in model
 const Post = use('App/Models/Post')
 // const User = use('App/Models/User')
-// const Comment = use('App/Models/Comment')
+const Comment = use('App/Models/Comment')
 const Helpers = use('Helpers')
 // const Database = use('Database')
 
@@ -16,12 +16,14 @@ class PostController {
         const posts = await Post            
             .query()
             .with('user')
-            //.orderBy('updated_at','desc')
-            .latest()
+            .with('lastComment')
+            .latest() //Post Trait
             .withCount('comments')
+            // .with('comments', (builder)=>builder.with('post').first())
             .fetch()
-
-        const postsList=  posts.toJSON()
+        
+        const postsList = posts.toJSON()
+        // console.log(postsList)
 
         return view.render('posts.index', {
             title: 'Latest Posts',
@@ -31,22 +33,20 @@ class PostController {
 
     async details({ params, view }) {
         const post = await Post
-            .query()
-            .with('comments.user')
+            .query()  
+            .with('comments.user')         
             .with('user')
             .where('id','=',`${params.id}`)
+            .latest()
             .first()
-        
+
         return view.render('posts.details', {
           post: post.toJSON(),
           image: post.image
         })
       }
 
-    async add({ view, session, auth, response }) {
-        // if (!auth.user) {
-        //     return response.redirect('/posts')
-        // }
+    async add({ view }) {        
         return view.render('posts.add')
     }
 
@@ -93,11 +93,7 @@ class PostController {
         return response.redirect('/posts')
     }
 
-    async edit({ params, view, auth, response }) {
-        // if (auth.user.user_type == 2) {
-        //     return response.redirect('/posts')
-        // }
-
+    async edit({ params, view }) {    
         const post = await Post.find(params.id)
         
         return view.render('posts.edit', {
@@ -125,8 +121,7 @@ class PostController {
         await post.save()
 
         session.flash({ notification: 'Post Updated!' })
-
-        // return response.redirect('postUpdate')
+        
         return response.redirect('/posts')
     }
 

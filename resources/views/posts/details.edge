@@ -22,7 +22,8 @@
                     @each(comment in post.comments)
                     <li class="list-group-item">
                         <span>{{ comment.comment_body }}</span> 
-                        <span class="float-right"><strong><i>{{ comment.user.username }}</i></strong></span>                                                                               
+                        <span class="float-right"><strong><i>{{ comment.user.username }}</i></strong></span><br>
+                        <span class="float-right"><small>{{ comment.created_at }}</small></span>
                     </li>            
                     @endeach
                 </ul>
@@ -60,7 +61,8 @@
                     @each(comment in post.comments)
                     <li class="list-group-item">
                         <span>{{ comment.comment_body }}</span>
-                        <span class="float-right"><strong><i>{{ comment.user.username }}</i></strong></span>
+                        <span class="float-right"><strong><i>{{ comment.user.username }}</i></strong></span><br>
+                        <span class="float-right"><small>{{ comment.created_at }}</small></span><br>
                             <form action="{{ route('destroyComment', { id: comment.id }) + '?_method=DELETE' }}" method="POST">
                                 {{ csrfField() }}
                                 <button type="submit" class="btn btn-danger btn-sm float-right">Delete</button>                                
@@ -106,9 +108,12 @@
             @each(comment in post.comments)
             <li class="list-group-item">
                 <span>{{ comment.comment_body }}</span>
-                <span class="float-right"><strong><i>{{ comment.user.username }}</i></strong></span>                                                        
+                <span class="float-right"><strong><i>{{ comment.user.username }}</i></strong></span><br>
+                <span class="float-right"><small>{{ comment.created_at }}</small></span>                                                        
             </li>            
             @endeach
         </ul>
+        <br>
+        <br>
     @endloggedIn
 @endsection

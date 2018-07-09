@@ -8,7 +8,7 @@ class Post extends Model {
       super.boot()
       this.addTrait('Latest')
     }
-
+    
     // static scopeLatest (query) {
     //   return query.orderBy('updated_at','desc')
     // }
@@ -23,8 +23,14 @@ class Post extends Model {
     }
 
     comments () {
-      return this.hasMany('App/Models/Comment')
+      // return this.hasMany('App/Models/Comment')
+      return this.hasMany('App/Models/Comment').latest()
     }
+    
+    lastComment () {
+      // return this.hasOne('App/Models/Comment')
+      return this.hasOne('App/Models/Comment').earlier()
+    } 
     
 }
 
