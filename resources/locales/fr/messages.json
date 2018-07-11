@@ -1,0 +1,3 @@
+{
+    "greeting": "{ gender, select, male {He} female {She} other {They} } répondra sous peu"
+}

@@ -80,3 +80,7 @@ section:before {
     transform: none;
   }
 }
+#testResult
+{
+    white-space:pre-wrap;
+}

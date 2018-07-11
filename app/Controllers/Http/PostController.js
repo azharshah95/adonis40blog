@@ -1,5 +1,8 @@
 'use strict'
 
+const Antl = use('Antl')
+const Formats = use('Antl/Formats')
+
 // Bring in model
 const Post = use('App/Models/Post')
 // const User = use('App/Models/User')
@@ -23,10 +26,20 @@ class PostController {
             .fetch()
         
         const postsList = posts.toJSON()
-        // console.log(postsList)
+        // console.log(postsList)       
+
+        const test = Antl
+            .forLocale('en')
+            // .forLocale('fr')
+            .formatMessage (
+                'messages.greeting', 
+                { gender: 'female' }
+            )
+        console.log(test)
 
         return view.render('posts.index', {
             title: 'Latest Posts',
+            test: test,
             posts: postsList
         })        
     }
