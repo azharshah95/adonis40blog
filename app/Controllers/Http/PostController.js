@@ -28,20 +28,35 @@ class PostController {
         const postsList = posts.toJSON()
         // console.log(postsList)       
 
-        const test = Antl
-            .forLocale('en')
-            // .forLocale('fr')
+        // const test = Antl
+        //     .forLocale('en')
+        //     // .forLocale('fr')
+        //     .formatMessage (
+        //         'messages.greeting', 
+        //         { gender: 'female' }
+        //     )
+        // console.log(test)
+
+        return view.render('posts.index', {
+            title: 'Latest Posts',
+            // test: test,
+            posts: postsList
+        })        
+    }
+
+    async language({ request, response }) {
+        console.log('hi')
+        const lang = request.input('options')
+        console.log(lang)
+
+        let ddd = Antl.forLocale(`${lang}`)
             .formatMessage (
                 'messages.greeting', 
                 { gender: 'female' }
             )
-        console.log(test)
+        console.log(ddd)
 
-        return view.render('posts.index', {
-            title: 'Latest Posts',
-            test: test,
-            posts: postsList
-        })        
+        return response.redirect('/posts')    
     }
 
     async details({ params, view }) {

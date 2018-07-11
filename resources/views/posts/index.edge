@@ -12,7 +12,14 @@
             {{ flashMessage('error.message') }}
         </div>
     @endif
-
+    <div>
+        <form method="GET" action="{{ route('postLanguage')}}">
+            <input type="radio" name="options" value="en" autocomplete="off" checked> en<br>
+            <input type="radio" name="options" value="fr" autocomplete="off" > fr <br>
+            <button class="btn btn-primary btn-sm" type="submit">Submit</button>
+        </form>
+    </div>
+    <br>
     <ul class="list-group">
         @each(post in posts)
         

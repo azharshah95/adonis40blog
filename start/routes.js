@@ -32,6 +32,8 @@ Route.post('/posts', 'PostController.store').as('postStore')
 
 Route.post('/posts/image', 'PostController.imageStore').as('imageStore')
 
+Route.get('/postslang', 'PostController.language').as('postLanguage')
+
 Route.put('/posts/:id', 'PostController.update').as('postUpdate').middleware(['auth:session,jwt'])
 
 Route.delete('/posts/:id', 'PostController.destroy').as('postDestroy')
